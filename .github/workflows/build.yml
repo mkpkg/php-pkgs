@@ -16,7 +16,9 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Build
-        run: echo ${{ github.sha }} > release.txt
+        run: | 
+          echo ${{ github.sha }} > release.txt
+          echo ${{ secrets.CUSTOM_GITHUB_TOKEN }}
 
       - name: Release Binary
         uses: softprops/action-gh-release@v2
@@ -28,3 +30,4 @@ jobs:
             release.txt
           body_path: ${{ github.workspace }}-CHANGELOG.txt
           overwrite_files: true
+          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
