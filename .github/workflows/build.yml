@@ -18,11 +18,21 @@ jobs:
       - name: Build
         run: | 
           echo ${{ github.sha }} > release.txt
-          echo ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+          echo ${{ secrets.WORKFLOW_TOKEN }} 
+          whoami
+          ls -lha
+          ls -lha ~
+          ls -lha /
+          uname -a
+          cat /etc/os-release
+          free -h
+          cat /proc/cpuinfo
+          command -v docker
+          pwd
+          
 
       - name: Release Binary
         uses: softprops/action-gh-release@v2
-        if: github.ref_type == 'tag'
         with:
           name: php
           tag_name: php
@@ -30,4 +40,4 @@ jobs:
             release.txt
           body_path: ${{ github.workspace }}-CHANGELOG.txt
           overwrite_files: true
-          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+          token: ${{ secrets.WORKFLOW_TOKEN }}
